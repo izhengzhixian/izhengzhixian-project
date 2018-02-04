@@ -1,0 +1,10 @@
+* zcal
+    a C language calculator
+    编译:
+
+    进入相应目录，输入make，回车
+** src
+    直接编译后就可以运行的
+** server_src, client_src
+    互相配合使用，一个做服务器端，一个做客户端，客户端有3种实现，
+    是一对多的通信，用了socket和多线程来实现。

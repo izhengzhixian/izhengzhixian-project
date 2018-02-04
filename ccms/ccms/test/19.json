@@ -1,0 +1,10 @@
+{
+"action":"dengji",
+"values":{
+       "isbn":"012346",
+       "bno":"000001",
+       "bname":"oracle",
+       "bauthor":"tangyuanxin",
+       "bpress":"shuili"
+         }
+}

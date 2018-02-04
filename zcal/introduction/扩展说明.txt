@@ -1,0 +1,50 @@
+如果要对本程序进行扩展，可按照下面的步骤
+
+一、命令
+ 1.在modules/command/文件夹中加入你新命令的源码文件和头文件(实现名字)。
+   注意：命令有两个名字，一个是对用户用的，如exit，还有一个是实现用的，
+        如cal_exit。两个名字可以一样，如果新命令的名字与C语言内置函数
+       名字相同，实现名字必须加cal_。
+ 2.头文件参考其它头文件写法。
+ 3.函数声明要求，返回值必须是char *，参数必须是char *。参数也就是命令的
+   参数，如果命令要求参数为空，则可以判断该字符串长度，如果不为0，
+   则报错，并返回NULL。如果正确执行，返回值是命令执行的结果，
+   要求必须在堆内存上申请一片空间，并将结果放入，然后返回头指针。
+ 4.在modules/command.c文件中，cmd数组中的尾部加入你新命令的的对用户使用
+   的名字，然后在cmd_func函数中相同的索引处加入你的函数名，这是函数指针。
+
+二、函数
+ 1.在modules/calculator/func/文件夹中加入你的源码文件
+   要求包含头文件：
+   #include<stdio.h>
+   #include<stdlib.h>
+   #include<math.h>
+   #include"../../extend.h"
+   #include"../cal_tree.h"
+   #include"_handle_digit.h"
+   函数声明要求，返回值Result，参数字符指针，实现函数名要求前加_func_，
+   例如有一个函数叫pow，实现函数名叫_func_pow，Result结构体包含两个成员，
+   一个是result(返回结果)，一个是flag(-1标志出错，0表示无效，1表示正确)，
+   可以调用Double_array *_handle_digit(char str)函数，把参数str传给它，
+   它经过处理以后，会返回一个结构体指针，如果返回值为NULL，说明出错，
+   可以直接返回一个flag为-1的Result结构体，如果返回不为空，可以通过该
+   结构体成员变量len得到返回结构体中数组的长度（至少为0，因为如果为0的话，
+   就直接返回NULL），通过array结构体成员变量得到其数组。这个数组就是用户
+   调用该函数的参数值，所以可以判断一个参数怎么处理，两个参数怎么处理，
+   如果参数个数不对可以直接报错，然后返回一个flag为-1的Result结构体。
+ 2.在modules/calculator/func/func_head.h中加入函数声明。
+ 3.在modules/calculator/func.c中，在func数组加入面向用户函数名字符串，
+   在func_func数组相同索引处加入接收处理函数名。在help_str数组相同索引处，
+   加入对该函数解释字符串，用于help命令。
+
+三、运算符
+ 1.在modules/calculator/operator.c中operator数组中加入该运算符的结构体，
+   然后在operator_func里相同索引的位置加入实现该运算符的函数。
+ 2.在modules/calculator/operator/文件夹中，选择相应运算符等级的源文件，
+   在里面实现该函数。要求函数返回值为Result结构体，参数为两个Result
+   结构体，分别代表运算符两边的操作数，如果是单目运算符，需要第一个Result
+   的flag成员变量为0，第二个为1，如果是双目运算符，要求两个都为1。
+   如果函数运行出错，返回Result的flag为-1。
+   注意：如果新加入的运算符属于新的等级，需要为所有改变运算等级的运算符
+   修改等级，还有其实现函数的源文件的名字。
+ 3.把头文件加入到modules/calculator/operator/operator_func.h中。

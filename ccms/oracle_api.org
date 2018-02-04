@@ -1,0 +1,250 @@
+* oracle 大作业网页与后台 api
+** PS
+  发送数据中 values 可以为空，但是必须要有，如：
+  send: { "action":"kaihu",
+      "values":{
+      }
+  }
+  否则报错
+
+** 登录
+  send: { "action":"login",
+      "values":{
+            "username": "",   //用户名
+            "password": ""     //密码
+      }
+  }
+
+  receive: {
+         "code": 0,     //返回码，0 代表没有错误，大于 0 代表有错
+         "message": "", //错误信息
+         "values":  { 
+             "identify": {
+                 "position": "", //职位，比如 card，student，book，all（最高权限）
+                 "flag": ""    //当前不适用，身份标志，在一定时间内有效，用于安全验证
+             } //身份信息
+         }    //返回数据
+  }
+** 开户
+  send: { "action":"kaihu",
+      "values":{
+            "xuehao": "",   //学号
+            "xingming": "",     //姓名
+            "yuanxi": ""       //院系
+      }
+  }
+
+  receive: {
+         "code": 0,     //返回码，0 代表没有错误，大于 0 代表有错
+         "message": "", //错误信息
+         "values":  {  }    //返回数据
+  }
+
+** 挂失
+  send: { "action":"guashi",
+        "values":{
+              "xuehao": ""   //学号
+        }
+  }
+
+  receive: {
+          "code": 0,     //返回码，0 代表没有错误，大于 0 代表有错
+          "message": "", //错误信息
+          "values":  {  }    //返回数据
+  }
+
+** 补卡
+  send: { "action":"buka",
+        "values":{
+              "xuehao": ""   //学号
+        }
+  }
+
+  receive: {
+          "code": 0,     //返回码，0 代表没有错误，大于 0 代表有错
+          "message": "", //错误信息
+          "values":  {  }    //返回数据
+  }
+
+** 注销(学生注销)
+  send: { "action":"zhuxiao",
+        "values":{
+              "xuehao": ""   //学号
+        }
+  }
+
+  receive: {
+          "code": 0,     //返回码，0 代表没有错误，大于 0 代表有错
+          "message": "", //错误信息
+          "values":  {  }    //返回数据
+  }
+
+** 充值
+  send: { "action":"chongzhi",
+        "values":{
+              "xuehao": "",   //学号
+              "jine": 数字   //充值金额
+        }
+  }
+
+  receive: {
+          "code": 0,     //返回码，0 代表没有错误，大于 0 代表有错
+          "message": "", //错误信息
+          "values":  {  }    //返回数据
+  }
+
+** 图书登记
+  send: { "action":"dengji",
+        "values":{
+              "isbn": "",   // 书唯一编号
+              "bno": "",    // 书统一编号
+              "bname": "", //书名
+              "bauthor": "",// 作者
+              "bpress": "" / /出版社
+        }
+  }
+
+  receive: {
+          "code": 0,     //返回码，0 代表没有错误，大于 0 代表有错
+          "message": "", //错误信息
+          "values":  {  }    //返回数据
+  }
+
+** 图书借阅
+  send: { "action":"jieyue",
+        "values":{
+              "xuehao": "",   //学号
+              "suoyinhao: ""   //isbn
+        }
+  }
+
+  receive: {
+          "code": 0,     //返回码，0 代表没有错误，大于 0 代表有错
+          "message": "", //错误信息
+          "values":  {  }    //返回数据
+  }
+
+** 图书续借
+  send: { "action":"xujie",
+        "values":{
+              "xuehao": "",   //学号
+              "suoyinhao: ""   //isbn
+        }
+  }
+
+  receive: {
+          "code": 0,     //返回码，0 代表没有错误，大于 0 代表有错
+          "message": "", //错误信息
+          "values":  {  }    //返回数据
+  }
+
+** 图书归还
+  send: { "action":"guihuan",
+        "values":{
+              "suoyinhao: ""   //isbn
+        }
+  }
+
+  receive: {
+          "code": 0,     //返回码，0 代表没有错误，大于 0 代表有错
+          "message": "", //错误信息
+          "values":  { 
+              "fakuan": 数字   //罚款
+          }    //返回数据
+  }
+
+** 图书查询
+  send: { "action":"book_chaxun",
+        "values":{
+          "isbn":""  //如果为空字符串，返回所有，如果不为空，查询相应的 isbn
+        }
+  }
+
+  receive: {
+          "code": 0,     //返回码，0 代表没有错误，大于 0 代表有错
+          "message": "", //错误信息
+          "values":  [           //数组
+                      {
+                          "tushubianma":"",       //图书编码，isbn
+                          "shuming":"",           //书名
+                          "zuozhe":"",            //作者
+                          "zhuangtai":""         //状态（借出，在馆）
+                      },
+          ]    //返回数据
+  }
+
+** 消费
+  send: { "action":"consume",
+        "values":{
+              "xuehao": "",   //学号
+              "type": "", //类型
+              "amount": 数字 //金额 
+        }
+  }
+
+  receive: {
+          "code": 0,     //返回码，0 代表没有错误，大于 0 代表有错
+          "message": "" //错误信息
+  }
+
+** 消费查询（consume_chaxun）
+  send: { "action":"consume_chaxun",
+        "values":{
+              "xuehao": "",   //学号
+        }
+  }
+
+  receive: {
+          "code": 0,     //返回码，0 代表没有错误，大于 0 代表有错
+          "message": "", //错误信息
+          "values":  [           //数组
+                      {
+                          "xuehao":"", //学号
+                          "type":"",  //消费类型
+                          "amount":""， //消费金额
+                          "data":""      //消费时间
+                      },
+          ]    //返回数据
+  }
+
+** 门禁开通
+  send: { "action":"open_menjin",
+        "values":{
+              "xuehao": "",   //学号
+        }
+  }
+
+  receive: {
+          "code": 0,     //返回码，0 代表没有错误，大于 0 代表有错
+          "message": "", //错误信息
+          "values":  {  }    //返回数据
+  }
+
+** 门禁禁止
+  send: { "action":"close_menjin",
+        "values":{
+              "xuehao": "",   //学号
+        }
+  }
+
+  receive: {
+          "code": 0,     //返回码，0 代表没有错误，大于 0 代表有错
+          "message": "", //错误信息
+          "values":  {  }    //返回数据
+  }
+
+** 门禁查询
+  send: { "action":"menjin_chaxun"}
+
+  receive: {
+          "code": 0,     //返回码，0 代表没有错误，大于 0 代表有错
+          "message": "", //错误信息
+          "values":  [           //数组
+                      {
+                          "xuehao":"",    //学号
+                          "weizhi":"",    //位置
+                          "menpaihao":"",     //门牌号
+                          "time":"", //使用门禁时间
+                      },
+            ]
+  }

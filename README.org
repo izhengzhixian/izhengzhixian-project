@@ -1,0 +1,43 @@
+* zzx666-project
+  这是我写的一些代码
+* zcal
+  a C language calculator
+
+  这是我的数据结构课程设计，后来操作系统课程设计时，我又加上了网络与多线程
+
+  编译: 进入相应目录，输入 make，回车
+** src
+   直接编译后就可以运行的
+** server_src, client_src
+   互相配合使用，一个做服务器端，一个做客户端，客户端有 3 种实现，
+   是一对多的通信，用了 socket 和多线程来实现。
+
+* ccms
+  校园一卡通管理系统，这时我的 oracle 课程设计
+
+  用 python 与 django 结合，设计数据库，来实现和调用 oracle
+** 服务端
+   在 ccms 文件夹里
+** 客户端
+   gui.py，也是用的 python，框架用的是自带的 tkinter
+
+* compiler
+  编译原理课写的一些代码
+** comment.c
+   去除 c 语言源码文件注释
+** opg.cpp
+   算符优先文法
+** opgplus.cpp
+   对 opg.cpp 里的 clear 方法进行了一些改进
+
+* z_tv
+  这是在 linux 底下看视频不方便，发现了 you-get 以后觉得在看电视剧的时候，
+  需要一个一个的去找每一集的网址，太不方便了，所以写了这么一个小程序，
+  用来分析电视剧的信息，然后把每一集的地址保存到本地。
+
+  目前实现了以下网址的分析:
+  - youku
+  - mgtv
+  - bilibili
+
+  具体功能可以直接运行 z_tv.py 来查看

@@ -1,0 +1,78 @@
+* new plan
+  PS: 以下所有用户的密码为，用户名 pwd
+  1) 创建一个 manager 用户，负责所有表的创建，所有用户的授权
+  2) 创建 student 学生表
+     | 字段含义 | 英文    | 类型        | 限制 |
+     |----------+---------+-------------+------|
+     | 学号     | sno     | varchar(10) | 主码 |
+     | 名字     | sname   | varchar(20) | 非空 |
+     | 学院班级 | s_class | varchar(50) | 非空 |
+  3) card 卡表
+     | 字段含义                                   | 英文    | 类型         | 限制   |
+     |--------------------------------------------+---------+--------------+--------|
+     | 卡 id                                      | cardID  | varchar(10)  | 主码   |
+     | 余额                                       | balance | number(8, 2) | 非空   |
+     | 学号                                       | sno     | varchar(10)  | 外码   |
+     | 卡激活                                     | active  | number(1)    | 默认 0 |
+  4) 创建 consume 消费表
+     | 字段含义           | 英文      | 类型        | 限制 |
+     |--------------------+-----------+-------------+------|
+     | 消费序号（无意义） | id        | number(8)   | 主码 |
+     | 卡 id              | cardID    | varchar(10) | 外码 |
+     | 消费类型           | con_type  | varchar(20) | 非空 |
+     | 消费金额           | con_amout | number(5,2) | 非空 |
+     | 消费时间           | con_time  | date        | 非空 |
+  5) 创建 book 图书表
+     | 字段含义                         | 英文    | 类型        | 限制        |
+     |----------------------------------+---------+-------------+-------------|
+     | 图书编码（一本书一个号）         | isbn    | varchar(20) | 主码        |
+     | 书索引号（同样的两本书是一个号） | bno     | varchar(20) | 非空        |
+     | 书名                             | bname   | varchar(50) | 非空        |
+     | 作者                             | bauthor | varchar(20) | 非空        |
+     | 出版社                           | bpress  | varchar(50) | 非空        |
+     | 是否在馆（0 代表被借走）         | status  | number(1)   | 非空，默认 1 |
+  6) 创建 book_borrow 借书表
+     | 字段含义             | 英文    | 类型        | 限制  |
+     |----------------------+---------+-------------+-------|
+     | 借书序号（无意义）   | id      | number(8)   | 主码  |
+     | 书号（一本书一个号） | isbn    | varchar(20) | 外码  |
+     | 卡号                 | cardID  | varchar(10  | 外码  |
+     | 借书日期             | bdate   | data        | 非空  |
+     | 还书日期             | rdata   | data        | 非空  |
+     | 实际还书日期         | rrdata  | data        |       |
+     | 罚金                 | forfeit | number(5,2) |       |
+     | 标识是否还书         | flag    | number(1)   | 默认 0，非空 |
+  7) 创建门禁 guard 表
+     | 字段含义 | 英文   | 类型        | 限制       |
+     |----------+--------+-------------+------------|
+     | 卡号     | cardID | varchar(10) | 外码，主码 |
+     | 开通标识 | open   | number(1)   | 默认 0，非空   |
+  8) 创建门禁记录 guard_record 表
+     | 字段含义                     | 英文     | 类型        | 限制 |
+     |------------------------------+----------+-------------+------|
+     | 门禁记录序号（无意义）       | id       | number(8)   | 主码 |
+     | 卡号                         | cardID   | varchar(10) | 外码 |
+     | 位置（新主楼，1 号搂什么的） | position | varchar(10) | 非空 |
+     | 门牌号（E1530 什么）         | gateID   | varchar(10) | 非空 |
+     | 出入时间                     | time     | date        | 非空 |
+  9) 创建签到 sign 表
+     | 字段含义 | 英文    | 类型        | 限制         |
+     |----------+---------+-------------+--------------|
+     | 卡号     | cardID  | varchar(10) | 外码，主码   |
+     | 开通标识 | sign_in | number(1)   | 默认 0，非空 |
+  10) 以下是管理授权部分
+     | 字段含义 | 英文     | 类型        | 限制 |
+     |----------+----------+-------------+------|
+     | 账号     | username | varchar(20) | 主码 |
+     | 密码     | password | varchar(20) | 非空 |
+     | 标识     | flag     | varchar(20) | 非空 |
+  manager 管理所有，以下分为卡管理员（cardAdmin），图书管理员（bookAdmin)，
+  学生信息管理员(studentAdmin），门禁管理员（guradAdmin），
+  消费管理员（consumeAdmin），签到管理员（signAdmin）
+  cardAdmin card 表操作授权
+  bookAdmin book，book_borrow 表操作授权
+  studentAdmin student 表操作授权
+  guardAdmin guard，guard_record 表授权
+  cousumeAdmin  cousumeAdmin，cardAdmin 表操作
+  signAdmin sign 表操作授权
+     

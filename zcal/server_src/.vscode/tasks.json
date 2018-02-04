@@ -1,0 +1,47 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "taskName": "socket zcal build",
+            "type": "shell",
+            "command": "gcc",
+            "args": [
+                "*.c",
+                "*/*.c",
+                "*/*/*.c",
+                "*/*/*/*.c",
+                "-g",
+                "-o",
+                "zcal",
+                "-lm"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared"
+            }
+        },
+        {
+            "taskName": "socket zcal",
+            "type": "shell",
+            "command": "./zcal",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared"
+            }
+        }
+    ]
+}
