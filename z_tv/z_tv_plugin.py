@@ -151,6 +151,7 @@ class SINGLE_TV():
                     'list': [],
                     'total': 0,
                     'save': 1,
+                    "reverse": False,
                     'src': '',
                     'tag': ''
                 }
@@ -177,6 +178,14 @@ class SINGLE_TV():
 
     def get_save(self):
         return self.name_info['save']
+
+
+    def set_reverse(self, reverse):
+        self.name_info['reverse'] = reverse
+
+
+    def get_reverse(self):
+        return self.name_info['reverse']
 
 
     def set_tag(self, tag):
@@ -213,3 +222,6 @@ class SINGLE_TV():
     
     def get_list(self):
         return tuple(self.name_info['list'])
+
+
+global_tv_info = None

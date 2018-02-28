@@ -7,6 +7,7 @@ import urllib
 import requests
 import importlib
 from z_tv_assist import *
+import z_tv_plugin
 from z_tv_plugin import *
 
 
@@ -24,7 +25,6 @@ def play(tv_name=None, tv_set=None):
 def add_resource(url, update=False):
     global tv_info
     tv_url_parse = urllib.parse.urlparse(url)
-    print(url)
     if tv_url_parse.hostname == "":
         print("无效url")
         return False
@@ -61,7 +61,7 @@ def search_resource(word, site=None):
         for index, site in enumerate(sites):
             pre_show.append(str(index).rjust(2) + "  " + site)
         option = get_num("选择搜索站点(0-" + str(len(sites)-1) \
-                + ", 默认为0)", 0, len(sites)-1, 0,
+                + ", 默认为0)：", 0, len(sites)-1, 0,
                 pre_show=pre_show)
         site = sites[option]
     print("当前使用" + site)
@@ -223,6 +223,8 @@ else:
     tv_info = TV_INFO()
     tv_info.set_path(tv_info_path)
     tv_info.save()
+
+z_tv_plugin.global_tv_info = tv_info
 
 
 add_map = {}
