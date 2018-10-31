@@ -18,6 +18,15 @@
 #include "sys/times.h"
 #include "sys/sem.h"
 
+#define DEBUG
+#ifdef DEBUG
+#define debug(format, ...) fprintf (stderr, format, ## __VA_ARGS__)
+#else
+#define debug(format, ...)
+#endif
+
+#define debug_func() debug("[FUNC] %s: %d\n", __func__, __LINE__)
+
 #define BUF_SIZE 1024
 #define THREAD_NUM 8
 
@@ -204,7 +213,7 @@ int handler_connect(int client_fd)
   char buffer[BUF_SIZE];
   size_t buf_read_len = 0;
   struct sockaddr_in client_addr;
-  socklen_t client_addr_len;
+  socklen_t client_addr_len = sizeof(client_addr);
   struct pollfd fds;
   fds.events = POLLIN;
   fds.fd = client_fd;
@@ -214,7 +223,7 @@ int handler_connect(int client_fd)
   char *http_body;
   HTTP_head_info hhi;
   getpeername(client_fd, (struct sockaddr*)&client_addr, &client_addr_len);
-  inet_ntop(client_addr.sin_family, &client_addr.sin_addr,
+  inet_ntop(AF_INET, &client_addr.sin_addr,
             hhi.client_addr, INET_ADDRSTRLEN);
   hhi.client_port = ntohs(client_addr.sin_port);
   hhi.client_fd = client_fd;
@@ -475,7 +484,7 @@ char *get_http_head(char *buffer, int status_code, char *header)
 
 void sig_exit_httpd_env(int sig)
 {
-  printf("exit signal: %d", sig);
+  printf("exit signal: %d\n", sig);
   exit_httpd_env();
   exit(1);
 }
