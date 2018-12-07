@@ -118,7 +118,8 @@ int Opg::load_lang(char nt, string str){
     if(lang.count(nt) == 1){
         lang[nt].push_back(str);
     }else{
-        noterminal[nt] = noterminal.size();
+        size_t cur_size = noterminal.size();
+        noterminal[nt] = (int)cur_size;
         vector<string> v({str});
         lang[nt] = v;
     }
@@ -132,8 +133,10 @@ int Opg::scan_terminal(){
             for(size_t k = 0; k < j->size(); k++){
                 char c = (*j)[k];
                 if(c <'A' || c > 'Z'){
-                    if(terminal.count(c) == 0)
-                        terminal[c] = terminal.size();
+                    if(terminal.count(c) == 0) {
+                        size_t cur_size = terminal.size();
+                        terminal[c] = (int)cur_size;
+                    }
                 }
             }
         }
@@ -447,7 +450,7 @@ int Opg::cal_formula(string str){
             cout << "算符优先关系表构建错误" << "\n";
             exit(1);
         }
-        
+
     }
 
     return 0;
@@ -475,10 +478,10 @@ int main(int argc, char *argv[])
 
     // 清空数据
     opg.clear();
-    
+
     cout << endl << endl;
     */
-    
+
     //以下是本次实验的数据
     cout << "本次实验，输出结果" << "\n";
     opg.load_lang('B', "BoT");
@@ -494,6 +497,6 @@ int main(int argc, char *argv[])
     opg.over();
     opg.print_table();
     opg.cal_formula("ntofat");
-    
+
     return 0;
 }
