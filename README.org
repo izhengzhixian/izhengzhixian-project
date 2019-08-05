@@ -1,4 +1,4 @@
-* zzx666-project
+* izhengzhixian-project
   这是我写的一些代码
 * zcal
   a C language calculator
